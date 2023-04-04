@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Профиль {{ user.username }}{% endblock %}
+
+{% block content %}
+<style>
+    button.logout {
+        background: linear-gradient(180deg, rgba(254, 161, 161, 0.5) 0%, rgba(222, 108, 33, 0.5) 151.36%);
+    }
+
+    button.logout:active {
+        background: linear-gradient(rgb(210, 173, 171), rgb(218, 161, 141));
+    }
+
+    button.href {
+        background: linear-gradient(rgb(254, 243, 205), rgb(246, 195, 136));
+        width: 220px;
+        height: 50px;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    button.href:active {
+        background: linear-gradient(rgb(206, 198, 168), rgb(182, 144, 101));
+    }
+
+    button {
+        width: max-content;
+        margin: 0 10px;
+        height: 30px;
+        box-sizing: border-box;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        border: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    div.card_content {
+        margin-top: -30px;
+    }
+
+    div.paginator {
+        text-align: center;
+    }
+
+    div.content {
+        width: 640px;
+        word-wrap: break-word;
+    }
+
+    button.reg {
+        background: linear-gradient(180deg, rgba(251, 231, 197, 0.5) 0%, rgba(222, 108, 33, 0.5) 151.36%);
+    }
+
+    button.reg:active {
+        background: linear-gradient(rgb(219, 219, 190), rgb(234, 196, 167));
+    }
+
+    button.log,
+    button.profile {
+        background: linear-gradient(180deg, rgba(254, 161, 161, 0.5) 0%, rgba(222, 108, 33, 0.5) 151.36%);
+    }
+
+    button.log:active,
+    button.profile:active {
+        background: linear-gradient(rgb(210, 173, 171), rgb(218, 161, 141));
+    }
+
+    button.href {
+        background: linear-gradient(rgb(254, 243, 205), rgb(246, 195, 136));
+        width: 220px;
+        height: 50px;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    button.href:active {
+        background: linear-gradient(rgb(210, 173, 171), rgb(218, 161, 141));
+    }
+</style>
+
+<header>
+    <a href="{% url 'index' %}">
+        <p class="VPotoke">VPotoke</p>
+    </a>
+    <div class="func_but">
+        {% if session_user %}
+        <a href="{% url 'profile' %}"><button class="profile">Профиль</button></a>
+        {% else %}
+        <a href="{% url 'registration' %}"><button class="reg">Регистрация</button></a>
+        <a href="{% url 'login' %}"><button class="log">Войти</button></a>
+        {% endif %}
+    </div>
+</header>
+
+<hr>
+
+{% if posts %}
+<div class="cards">
+    {% for poster in posts %}
+    <div class="card">
+        <div class="card_content"><br>
+            <p class="title">{{ poster.title }}   </p>
+            <div class="content">
+                <h1>{{ poster.content }}</h1>
+            </div><br />
+            <a href="{{ poster.url }}"><button class="href">Перейти</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h1>У вас нет постов:(</h1>
+{% endif %}
+{% endblock %}

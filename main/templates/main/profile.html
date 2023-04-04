@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<style>
+    button.logout {
+        background: linear-gradient(180deg, rgba(254, 161, 161, 0.5) 0%, rgba(222, 108, 33, 0.5) 151.36%);
+    }
+
+    button.logout:active {
+        background: linear-gradient(rgb(210, 173, 171), rgb(218, 161, 141));
+    }
+
+    button.href {
+        background: linear-gradient(rgb(254, 243, 205), rgb(246, 195, 136));
+        width: 220px;
+        height: 50px;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    button.href:active {
+        background: linear-gradient(rgb(206, 198, 168), rgb(182, 144, 101));
+    }
+    button.href1 {
+        background: none;
+        border: 2px solid black;
+        width: 220px;
+        height: 50px;
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    button.href1:active {
+        background: linear-gradient(rgba(210, 173, 171, 25%), rgba(218, 161, 141, 25%));
+    }
+
+    button {
+        width: max-content;
+        margin: 0 10px;
+        height: 30px;
+        box-sizing: border-box;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        border: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    div.paginator {
+        text-align: center;
+    }
+
+    div.content {
+        width: 640px;
+        word-wrap: break-word;
+    }
+
+    div.card_content {
+        margin-top: -30px;
+    }
+</style>
+
+<header>
+    <a href="{% url 'index' %}">
+        <p class="VPotoke">VPotoke</p>
+    </a>
+    <div class="func_but">
+        <a href="{% url 'addpost' %}"><button class="logout">Добавить пост</button></a>
+        <a href="{% url 'logout' %}"><button class="logout">Выйти</button></a><br><br>
+        <a href="{% url 'del_usr' %}"><button class="logout">Удалить мой аккаунт</button></a>
+    </div>
+</header>
+
+<hr>
+
+{% if posts %}
+<div class="cards">
+    {% for poster in posts %}
+    <div class="card">
+        <div class="card_content"><br>
+            <p class="title">{{ poster.title }}   </p>
+            <div class="content">
+                <h1>{{ poster.content }}</h1>
+            </div><br />
+            <a href="{{ poster.url }}"><button class="href">Перейти</button></a>
+            <div>
+                <a href="{% url 'poster' poster.id %}"><button class="href1">Редактировать</button></a>
+                <a href="{% url 'del_post' poster.id %}"><button class="href1">Удалить</button></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h1>У вас нет постов:(</h1>
+{% endif %}
+{% endblock %}
